@@ -1,15 +1,21 @@
-import React, {useState, useContext, useCallback, useEffect} from 'react';
-//import {SocketContext} from './../../../Contexts/socket';
+import React, {useEffect} from 'react';
 import socketIOClient from "socket.io-client";
 
 function IoBox() {
 
-    //const socket = useContext(SocketContext).connect('http://localhost:3000', { transports: ['websocket'] });
     const socket = socketIOClient('http://localhost:3000', { transports: ['websocket'] });
     useEffect(() => {
         socket.on('message', (data) => {
             console.log(data);
         })
+        socket.on('connexion_acknowledgement', () => {
+            console.log('aknowledgement');
+        })
+        return () => {
+            // before the component is destroyed
+            // unbind all event handlers used in this component
+            socket.off();
+        };
     }, [])
 
     function testSocket() {
