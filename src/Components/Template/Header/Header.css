@@ -1,0 +1,75 @@
+.Header {
+    background-color: #150000;
+    box-shadow: inset -1px -1px 6px #0baa0b;
+    min-height: 100px;
+    display: flex;
+    justify-content: space-between;
+    color: white;
+}
+
+.ghost-nav, header, nav {
+    flex: 1;
+}
+
+nav {
+    text-align: right;
+    padding: 20px;
+}
+
+nav a, nav a:hover, nav a:visited {
+    text-decoration: none;
+    color: white;
+}
+
+h1 {
+    margin-bottom: 6px;
+}
+
+h1 a{
+    text-decoration: none;
+    font-family: 'Montserrat', sans-serif;
+    font-family: 'Roboto', sans-serif;
+    color: white;
+}
+
+.heading-underline {
+    display: flex;
+    margin-bottom: 20px;
+    position: relative;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.heading-underline div {
+    height: 12px;
+}
+
+.heading-underline__blue {
+    background-color: #0a67f3;
+    width: 25%;
+}
+
+.heading-underline__yellow {
+    background-color: #fbff00;
+    width: 25%;
+}
+
+.heading-underline__green {
+    background-color: #47e417;
+    width: 25%;
+}
+
+.heading-underline__red {
+    background-color:#ff0b0b;
+    width: 25%;
+}
+
+.heading-underline__shadow {
+    box-shadow: inset -1px -1px 8px #150000;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+}

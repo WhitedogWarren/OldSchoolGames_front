@@ -1,0 +1,48 @@
+.Signup {
+    text-align: center;
+}
+
+.Signup h2 {
+    padding: 10px;
+    box-shadow: inset -1px -1px 6px #0baa0b;
+}
+
+.field-box {
+    padding: 20px;
+}
+
+button {
+    margin-top: 30px;
+}
+
+.signup-form {
+    width: 500px;
+    margin: 60px auto 0;
+    /*padding: 20px 0;*/
+    box-shadow: inset -1px -1px 6px #0baa0b;
+}
+
+.signup-form .signup-form__fields {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0;
+}
+
+input.invalid {
+    box-shadow: 1px 1px 8px #fd2f2f;
+}
+
+input.invalid:focus-visible {
+    outline: -webkit-focus-ring-color auto 1px;
+    outline-offset: 0px;
+    outline-color: #fd2f2f;
+}
+
+.error-logger {
+    display: none;
+    text-align: left;
+    margin: 10px;
+    padding: 10px;
+    border-radius: 6px;
+    box-shadow: 1px 1px 8px #fd2f2f;
+}
