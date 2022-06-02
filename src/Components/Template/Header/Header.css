@@ -11,9 +11,14 @@
     flex: 1;
 }
 
+.ghost-nav {
+    padding: 20px;
+}
+
 nav {
     text-align: right;
     padding: 20px;
+    
 }
 
 nav a, nav a:hover, nav a:visited {
