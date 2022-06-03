@@ -7,9 +7,9 @@ function AuthProvider({ children }) {
   const [getAuthStatus, setAuthStatus] = useState({isLoggedIn: false, user:null, token:null});
   //const navigate = useNavigate();
   
-  function handleLogin(data, callback) {
+  function handleLogin(data) {
     if(data.isLoggedIn && data.token && data.user) {
-      //localStorage.setItem('oldschoolgames', data.token);
+      localStorage.setItem('oldschoolgames', data.token);
       setAuthStatus(data);
       //navigate("/");
       //callback();
@@ -18,7 +18,7 @@ function AuthProvider({ children }) {
 
   function handleLogout() {
     setAuthStatus({isLoggedIn: false, user: null, token: null});
-    //localStorage.removeItem('oldschoolgames');
+    localStorage.removeItem('oldschoolgames');
     //navigate("/login");
   }
 

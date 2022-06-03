@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 
 import './Login.css';
-import useAuth from './../../../hooks/useAuth'
+import useAuth from './../../../hooks/useAuth';
 
 function Login() {
     let formObject = {
@@ -18,10 +18,8 @@ function Login() {
         const axios = require('axios').default;
         axios.post('/api/auth/login', inputValue)
         .then(response => {
-            //console.log(response)
             onLogin({isLoggedIn: true, user: response.data.user, token: response.data.token});
-            //navigate("/");
-            
+            navigate("/");
         })
         .catch(error => {
             console.log(error);

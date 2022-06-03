@@ -1,7 +1,9 @@
-import { useContext, useState } from 'react';
+import { useState } from 'react';
+import { useNavigate } from "react-router-dom";
 
 import './Signup.css';
-import AuthContext from './../../../Contexts/AuthContext';
+//import AuthContext from './../../../Contexts/AuthContext';
+import useAuth from './../../../hooks/useAuth';
 
 function Signup() {
     let formObject = {
@@ -12,7 +14,8 @@ function Signup() {
     }
 
     const [inputValue, setInputValue] = useState(formObject);
-    const { onLogin } = useContext(AuthContext);
+    const { onLogin } = useAuth();
+    const navigate = useNavigate();
     
     function handleSubmit(event) {
         event.preventDefault();
@@ -34,7 +37,8 @@ function Signup() {
             console.log(response.data.message);
             console.log(response.data.user);
             console.log(response.data.token)
-            onLogin({isLoggedIn: true, user: response.data.user, token: response.data.token})
+            onLogin({isLoggedIn: true, user: response.data.user, token: response.data.token});
+            navigate("/");
         })
         .catch(error => {
             console.log(error.response.data);
@@ -101,7 +105,6 @@ function Signup() {
         let inputKey = event.target.id.substring(event.target.id.indexOf('-') + 1);
         formObject[inputKey] = event.target.value;
         setInputValue(formObject);
-        //console.log(inputValue);
         //////
         // TODO : prévalidation JS
         //////
@@ -118,7 +121,6 @@ function Signup() {
         const pseudoRegexp = /[0-9a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð.' \-_]+$/u;
         const emailRegexp = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@(([[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         const passwordRegexp = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[+\-/=!@_&*])[0-9a-zA-Z+\-/=!@_&*]{8,}$/;
-        //console.log(inputValue);
         if(inputValue.pseudo !== '' && !pseudoRegexp.test(inputValue.pseudo)) {
             errorMessage += 'Pseudo invalide !<br>';
             errorMessage += 'Le pseudo ne peut contenir que des lettres, des chiffres, et des caractère spéciaux parmi . \' - et _<br>';
@@ -209,7 +211,6 @@ function Signup() {
                     </div>
                     <button type='submit'>Entrer</button>
                     <div className="error-logger">
-
                     </div>
                 </div>
             </form>
