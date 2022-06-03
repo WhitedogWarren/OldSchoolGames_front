@@ -1,17 +1,22 @@
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 
 import AuthContext from '../../../Contexts/AuthContext';
 
 import './Main.css';
-import IoBox from '../IoBox/IoBox';
+//import IoBox from '../IoBox/IoBox';
 
 function Main() {
-    const { user } = useContext(AuthContext).authStatus;
-    
+    const { authStatus } = useContext(AuthContext);
+    useEffect(() => {
+        console.log('Main Mounted again');
+        return () => {
+            console.log('Main destroyed');
+        }
+    }, [])
     return (
         <div className="Main">
-            <p>Bienvenue {user.pseudo}</p>
-            <IoBox/>
+            {console.log(authStatus)}
+            <p>Bienvenue</p>
         </div>
     );
 }

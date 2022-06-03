@@ -1,14 +1,23 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import socketIOClient from "socket.io-client";
 import { ioManagment } from './io';
 
 function IoBox() {
-
-    const socket = socketIOClient('http://localhost:3000', { transports: ['websocket'] });
-    useEffect(() => ioManagment(socket), [socket]);
+    //const [socket, setSocket] = useState(socketIOClient('http://192.168.1.58:3000', { transports: ['websocket'] }));
+    //const socket = socketIOClient('http://192.168.1.58:3000', { transports: ['websocket'] });
+    useEffect(() => {
+        console.log('IoBox.useEffect()');
+        //ioManagment(socket);
+        return () => {
+            console.log('IoBox destroyed');
+            // before the component is destroyed
+            // unbind all event handlers used in this component
+            //socket.off();
+        };
+    }, []);
 
     function testSocket() {
-        socket.emit('test', 'test');
+        //socket.emit('test', 'test');
     }
 
     return (

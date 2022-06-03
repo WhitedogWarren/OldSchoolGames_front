@@ -22,8 +22,8 @@ function App() {
                 <Main />
               </ProtectedRoute>
             } />
-            <Route path="login" element={<Login />} />
-            <Route path="signup" element={<Signup />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
           </Routes>
         </AuthProvider>
       </BrowserRouter>

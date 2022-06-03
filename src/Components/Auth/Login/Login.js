@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from "react-router-dom";
 
 import './Login.css';
 import useAuth from './../../../hooks/useAuth'
@@ -10,6 +11,7 @@ function Login() {
     }
     const [inputValue, setInputValue] = useState(formObject);
     const { onLogin } = useAuth();
+    const navigate = useNavigate();
 
     function handleSubmit(event) {
         event.preventDefault();
@@ -18,6 +20,8 @@ function Login() {
         .then(response => {
             //console.log(response)
             onLogin({isLoggedIn: true, user: response.data.user, token: response.data.token});
+            //navigate("/");
+            
         })
         .catch(error => {
             console.log(error);

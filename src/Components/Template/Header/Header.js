@@ -7,8 +7,8 @@ import useAuth from "../../../hooks/useAuth";
 
 function Header() {
     //console.log(authStatus);
-    const isLoggedIn = useAuth().authStatus.isLoggedIn;
-    const { onLogout } = useAuth();
+    //const isLoggedIn = useAuth().authStatus.isLoggedIn;
+    const { onLogout, authStatus } = useAuth();
     return (
         <header className="Header">
             <div className="ghost-nav"></div>
@@ -23,14 +23,14 @@ function Header() {
                 </div>
             </div>
             <nav>
-                {!isLoggedIn && (
+                {!authStatus.isLoggedIn && (
                     <div>
                         <Link to="/login">login</Link>{' | '}
                         <Link to="/signup">signup</Link>
                     </div>
                     
                 )}
-                {isLoggedIn && (
+                {authStatus.isLoggedIn && (
                     <button type="button" onClick={onLogout}>
                         Log Out
                     </button>
