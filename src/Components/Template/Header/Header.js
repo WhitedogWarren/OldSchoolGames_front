@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 
-import './Header.css';
 import useAuth from "../../../hooks/useAuth";
+import './Header.css';
 
 function Header() {
     const { onLogout, authStatus } = useAuth();

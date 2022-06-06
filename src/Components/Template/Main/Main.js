@@ -1,14 +1,24 @@
-import useAuth from "../../../hooks/useAuth";
+import { useEffect } from 'react';
+import useIoSocket from '../../../hooks/useIoSocket';
 
 import './Main.css';
-import IoBox from '../IoBox/IoBox';
+import IoMessageBox from './IoMessageBox/IoMessageBox';
+import UserList from './UserList/UserList';
 
 function Main() {
-    const { authStatus } = useAuth();
+    const { ioClose } = useIoSocket();
+    useEffect(() => {
+        return () => {
+            // before the component is destroyed
+            // unbind all event handlers used in this component
+            ioClose();
+        };
+    }, [ioClose]);
+    
     return (
         <div className="Main">
-            
-            <IoBox />
+                <UserList />
+                <IoMessageBox />
         </div>
     );
 }

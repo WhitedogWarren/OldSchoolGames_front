@@ -5,7 +5,8 @@ import Header from './Components/Template/Header/Header';
 import Login from './Components/Auth/Login/Login';
 import Signup from './Components/Auth/Signup/Signup';
 import ProtectedRoute from './Components/routes/ProtectedRoute/ProtectedRoute';
-import AuthProvider from './Providers/AuthProvider/AuthProvider';
+import AuthProvider from './Providers/AuthProvider';
+import IoSocketProvider from "./Providers/IoSocketProvider";
 
 import './App.css';
 
@@ -19,7 +20,10 @@ function App() {
           <Routes>
             <Route path="/" element={
               <ProtectedRoute>
-                <Main />
+                <IoSocketProvider>
+                  <Main />
+                </IoSocketProvider>
+                
               </ProtectedRoute>
             } />
             <Route path="/login" element={<Login />} />
