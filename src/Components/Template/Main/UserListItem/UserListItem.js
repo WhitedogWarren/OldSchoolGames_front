@@ -4,6 +4,11 @@ import './UserListItem.css';
 
 function UserListItem(props) {
     const { Socket } = useIoSocket();
+    
+    // function handleInvites(user) {
+    //     console.log()
+    // }
+
     function sendInvite(user) {
         Socket.emit('invite', user);
     }
