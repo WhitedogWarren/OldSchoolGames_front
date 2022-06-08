@@ -13,10 +13,12 @@ function removeMessage(message) {
 exports.ioManagment = (socket) => {
     
     socket.on('message', (data) => {
+        console.log('message reçu : ' + data);
         let ioMessage = document.createElement('p');
         ioMessage.innerHTML = data;
         ioMessage.setAttribute('className', 'io-message');
-        document.querySelector('.io-message').before(ioMessage);
+        document.querySelector('.io-inbox').prepend(ioMessage);
+        setTimeout(() => {removeMessage(ioMessage)}, 4000);
     })
     socket.on('connexion_acknowledgement', () => {
         socket.emit('setRoom', window.localStorage.getItem('oldschoolgames'));
@@ -51,5 +53,13 @@ exports.ioManagment = (socket) => {
         welcome.classList.add('io-message');
         document.querySelector('.io-inbox').prepend(welcome);
         setTimeout(() => {removeMessage(welcome)}, 4000);
+    })
+
+    socket.on('invitedBy', user => {
+        let inviteMessage = document.createElement('p');
+        inviteMessage.innerHTML = `${user} vous a invité !`;
+        inviteMessage.classList.add('io-message');
+        document.querySelector('.io-inbox').prepend(inviteMessage);
+        setTimeout(() => {removeMessage(inviteMessage)}, 4000);
     })
 }

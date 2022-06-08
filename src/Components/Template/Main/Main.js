@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import useIoSocket from '../../../hooks/useIoSocket';
 
-import './Main.css';
+import './Main.scss';
 import IoMessageBox from './IoMessageBox/IoMessageBox';
 import UserList from './UserList/UserList';
 
