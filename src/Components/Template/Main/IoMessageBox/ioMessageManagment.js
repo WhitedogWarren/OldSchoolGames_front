@@ -1,65 +1,55 @@
-function removeMessage(message) {
-    message.style.opacity = 1;
-    let interval = setInterval(() => {
-        if(message.style.opacity > 0) {
-            message.style.opacity = message.style.opacity - 0.1;
-        }
-        else {
-            clearInterval(interval);
-        }
-    }, 100);
+function displayMessage(message) {
+    let messageElement = document.createElement('p');
+    messageElement.innerHTML = message;
+    messageElement.classList.add('io-message');
+    document.querySelector('.io-inbox').prepend(messageElement);
+    messageElement.style.opacity = 1;
+    setTimeout(() => {
+        let interval = setInterval(() => {
+            if(messageElement.style.opacity > 0) {
+                messageElement.style.opacity = messageElement.style.opacity - 0.1;
+            }
+            else {
+                clearInterval(interval);
+                messageElement.remove();
+            }
+        }, 100)
+    }, 4000);
 }
 
 exports.ioManagment = (socket) => {
-    
-    socket.on('message', (data) => {
-        console.log('message reçu : ' + data);
-        let ioMessage = document.createElement('p');
-        ioMessage.innerHTML = data;
-        ioMessage.setAttribute('className', 'io-message');
-        document.querySelector('.io-inbox').prepend(ioMessage);
-        setTimeout(() => {removeMessage(ioMessage)}, 4000);
-    })
+    //server received 'connexion' event and automatiquely responded with a 'connexion_acknowledgement' event
+    //client sends back a 'setRoom event with token
     socket.on('connexion_acknowledgement', () => {
         socket.emit('setRoom', window.localStorage.getItem('oldschoolgames'));
     })
+    //server responds to a 'setRoom' event with a 'socketNammed' event, meaning that socket has a userName property
     socket.on('socketNamed', data => {
+        //console.log('socketNamed');
         data = JSON.parse(data);
-        console.log('socketNamed');
-        let welcome = document.createElement('p');
-        welcome.innerHTML = `Connecté au serveur io<br>Bienvenue ${data.pseudo}`;
-        //updateUserList(data.userList);
-        
-        welcome.classList.add('io-message');
-        document.querySelector('.io-inbox').prepend(welcome);
-        setTimeout(() => {removeMessage(welcome)}, 4000);
+        let welcome = `Connecté au serveur io<br>Bienvenue ${data.pseudo}`;
+        displayMessage(welcome);
     })
+    //display messages
+    socket.on('message', (data) => {
+        displayMessage(data);
+    })
+    //server broadcasted a 'newUser' event
     socket.on('newUser', data => {
+        //console.log('newUser');
         data = JSON.parse(data);
-        console.log('newUser');
-        //updateUserList(data.userList);
-        let welcome = document.createElement('p');
-        welcome.innerHTML = `${data.pseudo} vient de se connecter`;
-        welcome.classList.add('io-message');
-        document.querySelector('.io-inbox').prepend(welcome);
-        setTimeout(() => {removeMessage(welcome)}, 4000);
+        let newUserMessage = `${data.pseudo} vient de se connecter`;
+        displayMessage(newUserMessage);
     })
+    //server broadcasted a 'userLeft' event
     socket.on('userLeft', data => {
         data = JSON.parse(data);
-        console.log('userLeft');
-        //updateUserList(data.userList);
-        let welcome = document.createElement('p');
-        welcome.innerHTML = `${data.pseudo} vient de partir`;
-        welcome.classList.add('io-message');
-        document.querySelector('.io-inbox').prepend(welcome);
-        setTimeout(() => {removeMessage(welcome)}, 4000);
+        let userLeftMessage = `${data.pseudo} vient de partir`;
+        displayMessage(userLeftMessage);
     })
-
+    //server notices an invitation from $user
     socket.on('invitedBy', user => {
-        let inviteMessage = document.createElement('p');
-        inviteMessage.innerHTML = `${user} vous a invité !`;
-        inviteMessage.classList.add('io-message');
-        document.querySelector('.io-inbox').prepend(inviteMessage);
-        setTimeout(() => {removeMessage(inviteMessage)}, 4000);
+        let inviteMessage = `${user} vous a invité`;
+        displayMessage(inviteMessage);
     })
 }

@@ -12,14 +12,20 @@ function UserList() {
     
     ioManagment(Socket, updateUserList, updateInvites);
     const displayedUsers = userList.filter(user => user !== authStatus.user.pseudo);
-    console.log('Invites : ', invites);
+    //console.log('Invites : ', invites);
+
+    
     
     return (
         <div className="Userlist">
             <div className="Userlist__heading">
                 userList
             </div> 
-            {displayedUsers.map((user) => (<UserListItem user={user} key={`${user}-listItem`} />))}
+            {displayedUsers.map((user) => (<UserListItem
+                user={user}
+                key={`${user}-listItem`}
+                invites={invites}
+            />))}
         </div>
     )
 }

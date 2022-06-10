@@ -14,4 +14,7 @@ exports.ioManagment = (socket, updateUserList, updateInvites) => {
     socket.on('invitesList', invites => {
         updateInvites(JSON.parse(invites));
     })
+    socket.on('morpionStarts', data => {
+        console.log(data);
+    })
 }
