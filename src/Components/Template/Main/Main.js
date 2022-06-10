@@ -1,9 +1,11 @@
 import { useEffect } from 'react';
 import useIoSocket from '../../../hooks/useIoSocket';
+import { Outlet } from 'react-router-dom';
+
 
 import './Main.scss';
-import IoMessageBox from './IoMessageBox/IoMessageBox';
-import UserList from './UserList/UserList';
+// import IoMessageBox from './IoMessageBox/IoMessageBox';
+// import UserList from './UserList/UserList';
 
 function Main() {
     const { ioClose } = useIoSocket();
@@ -17,8 +19,7 @@ function Main() {
     
     return (
         <div className="Main">
-                <UserList />
-                <IoMessageBox />
+                <Outlet />
         </div>
     );
 }

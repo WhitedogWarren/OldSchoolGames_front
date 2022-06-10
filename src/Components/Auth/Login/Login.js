@@ -19,7 +19,7 @@ function Login() {
         axios.post('/api/auth/login', inputValue)
         .then(response => {
             onLogin({isLoggedIn: true, user: response.data.user, token: response.data.token});
-            navigate("/");
+            navigate("/home");
         })
         .catch(error => {
             console.log(error);

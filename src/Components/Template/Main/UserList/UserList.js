@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import useAuth from "../../../../hooks/useAuth";
 import useIoSocket from "../../../../hooks/useIoSocket";
 import { ioManagment } from "./ioUserListManagment";
@@ -9,8 +10,9 @@ function UserList() {
     const { Socket } = useIoSocket();
     const [userList, updateUserList] = useState([]);
     const [invites, updateInvites] = useState({invited: [], invitedBy: []});
+    const navigate = useNavigate();
     
-    ioManagment(Socket, updateUserList, updateInvites);
+    ioManagment(Socket, updateUserList, updateInvites, navigate);
     const displayedUsers = userList.filter(user => user !== authStatus.user.pseudo);
     //console.log('Invites : ', invites);
 

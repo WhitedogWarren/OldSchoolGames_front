@@ -1,4 +1,4 @@
-exports.ioManagment = (socket, updateUserList, updateInvites) => {
+exports.ioManagment = (socket, updateUserList, updateInvites, navigate) => {
     socket.on('socketNamed', data => {
         data = JSON.parse(data);
         updateUserList(data.userList);
@@ -15,6 +15,6 @@ exports.ioManagment = (socket, updateUserList, updateInvites) => {
         updateInvites(JSON.parse(invites));
     })
     socket.on('morpionStarts', data => {
-        console.log(data);
+        navigate("/morpion")
     })
 }
