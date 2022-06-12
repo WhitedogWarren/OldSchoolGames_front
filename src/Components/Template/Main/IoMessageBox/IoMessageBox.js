@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+
 import useIoSocket from '../../../../hooks/useIoSocket';
 import { ioManagment } from './ioMessageManagment';
 
@@ -5,7 +7,18 @@ import './IoMessageBox.scss';
 
 function IoMessageBox() {
     const { Socket } = useIoSocket();
-    ioManagment(Socket);
+
+    useEffect(() => {
+        ioManagment(Socket);
+        return () => {
+            Socket.off('connexion_acknowledgement');
+            Socket.off('socketNamed');
+            Socket.off('message');
+            Socket.off('newUser');
+            Socket.off('userLeft');
+            Socket.off('invitedBy');
+        }
+    }, [])
     
     return (
         <div className="IoMessageBox">

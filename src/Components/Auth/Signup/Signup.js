@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 
-import './Signup.css';
-//import AuthContext from './../../../Contexts/AuthContext';
 import useAuth from './../../../hooks/useAuth';
+
+import './Signup.css';
 
 function Signup() {
     let formObject = {
@@ -19,18 +19,13 @@ function Signup() {
     
     function handleSubmit(event) {
         event.preventDefault();
-        
         if(!checkForm()) {
             return;
         }
-        
         document.getElementsByClassName('error-logger')[0].innerHTML = '';
         for(let input of document.getElementsByTagName('input')) {
             input.classList.remove('invalid');
         }
-        //////
-        // TODO : prévalidation JS
-        //////
         const axios = require('axios').default;
         axios.post('/api/auth/signup', inputValue)
         .then(response => {
@@ -38,13 +33,9 @@ function Signup() {
             console.log(response.data.user);
             console.log(response.data.token)
             onLogin({isLoggedIn: true, user: response.data.user, token: response.data.token});
-            navigate("/");
+            navigate("/home");
         })
         .catch(error => {
-            console.log(error.response.data);
-            //////
-            // TODO : traitement des erreurs de la réponse
-            //////
             let errorMessage = '';
             document.getElementsByClassName('error-logger')[0].style.display = 'none';
             let fieldTranslation = new Map();
@@ -105,9 +96,6 @@ function Signup() {
         let inputKey = event.target.id.substring(event.target.id.indexOf('-') + 1);
         formObject[inputKey] = event.target.value;
         setInputValue(formObject);
-        //////
-        // TODO : prévalidation JS
-        //////
         checkForm();
     }
 
@@ -154,14 +142,12 @@ function Signup() {
                 errorMessage += ' style="color:red"';
             }
             errorMessage += '>( et aucun autre )</span><br><span';
-
             if(inputValue.password.length<8) {
                 errorMessage += ' style="color:red"';
             }
             errorMessage += '>- Au moins 8 caractères</span>';
         }
         if(errorMessage !== '') {
-            //console.log(errorMessage);
             document.getElementsByClassName('error-logger')[0].style.display = 'block';
             document.getElementsByClassName('error-logger')[0].innerHTML = errorMessage;
         }

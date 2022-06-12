@@ -8,17 +8,17 @@ function UserListItem(props) {
     function handleInvites(user) {
         if(props.invites.invited.includes(user)) {
             console.log('déjà invité');
+            //////
+            // TODO : display message
+            //////
         }
         if(props.invites.invitedBy.includes(user)) {
-            console.log('répondre à l\'invitation');
             Socket.emit('setGame', user);
         }
         if(!props.invites.invited.includes(user) && !props.invites.invitedBy.includes(user)) {
-            //console.log('Inviter');
             Socket.emit('invite', user);
         }
     }
-
     
     return (
         <p

@@ -1,25 +1,37 @@
 import { useEffect } from "react";
 
 import useIoSocket from "../../../hooks/useIoSocket";
+import useAuth from "../../../hooks/useAuth";
+import useMorpion from "../../../hooks/useMorpion";
 import { ioManagment } from './ioMorpionManagment';
 
 import './Morpion.scss';
 
 function Morpion() {
     const { Socket } = useIoSocket();
-    ioManagment(Socket);
+    
+    const { authStatus } = useAuth();
+    const {players} = useMorpion();
+    
     function handleCellClick(event) {
         console.log('cell clicked : ', event.target.id);
+        let data = {
+            gameHost: players.host,
+            player: authStatus.user.pseudo,
+            cellPlayed: event.target.id
+        }
+        Socket.emit('cellPlayed', data);
     }
 
-
     useEffect(() => {
+        ioManagment(Socket);
         console.log('Morpion rendered');
+        console.log(players);
+        //Size the gameboard
         let gameBoard = document.querySelector('.game-board');
         let windowBottom = window.innerHeight;
-        let height = windowBottom - 50 - (gameBoard.getBoundingClientRect().y + 20);
+        let height = windowBottom - 60 - (gameBoard.getBoundingClientRect().y + 20);
         let width = document.querySelector('.Morpion').getBoundingClientRect().width - document.querySelector('.Morpion').getBoundingClientRect().width%3 -3;
-        //Size the gameboard
         let boardWidth;
         if(width > height) { //landscape
             gameBoard.style.height = height + 'px';
@@ -53,19 +65,25 @@ function Morpion() {
                 document.getElementById('col' + i).appendChild(cell);
                 cell.style.height = boardWidth/3 + 'px';
                 cell.style.width = boardWidth/3 + 'px';
+                cell.style.fontSize = Math.floor(boardWidth*0.26) + 'px';
             }
         }
 
         return () => {
-            for(let child of gameBoard.children) {
-                child.remove();
-            }
+            //clear the gameboard
+            gameBoard.innerHTML = '';
+            console.log(gameBoard.children);
+            //////
+            // TODO : clear socket eventListeners
+            //////
         }
     }, []);
 
     return (
         <div className="Morpion">
             <div className="game-board">
+            </div>
+            <div className="game-message-box">
             </div>
         </div>
     )

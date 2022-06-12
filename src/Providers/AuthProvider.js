@@ -19,6 +19,7 @@ function AuthProvider({ children }) {
 
   const value = {
       authStatus: getAuthStatus,
+      setAuthStatus,
       onLogin: handleLogin,
       onLogout: handleLogout
   }

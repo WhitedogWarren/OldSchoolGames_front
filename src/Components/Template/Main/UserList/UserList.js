@@ -1,22 +1,31 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+
 import useAuth from "../../../../hooks/useAuth";
 import useIoSocket from "../../../../hooks/useIoSocket";
+import useMorpion from "../../../../hooks/useMorpion";
 import { ioManagment } from "./ioUserListManagment";
+
 import UserListItem from "./../UserListItem/UserListItem";
 
 function UserList() {
     const { authStatus } = useAuth();
     const { Socket } = useIoSocket();
+    const { setPlayers } = useMorpion();
     const [userList, updateUserList] = useState([]);
     const [invites, updateInvites] = useState({invited: [], invitedBy: []});
     const navigate = useNavigate();
-    
-    ioManagment(Socket, updateUserList, updateInvites, navigate);
     const displayedUsers = userList.filter(user => user !== authStatus.user.pseudo);
-    //console.log('Invites : ', invites);
-
-    
+    useEffect(() => {
+        ioManagment(Socket, authStatus.user.pseudo, updateUserList, updateInvites, navigate, setPlayers);
+        return () => {
+            Socket.off('socketNamed');
+            Socket.off('newUser');
+            Socket.off('userLeft');
+            Socket.off('invitesList');
+            Socket.off('morpionStarts');
+        }
+    }, [])
     
     return (
         <div className="Userlist">

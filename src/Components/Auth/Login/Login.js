@@ -1,21 +1,22 @@
 import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 
-import './Login.css';
 import useAuth from './../../../hooks/useAuth';
+
+import './Login.css';
 
 function Login() {
     let formObject = {
         email: '',
         password: ''
     }
+    const axios = require('axios').default;
     const [inputValue, setInputValue] = useState(formObject);
     const { onLogin } = useAuth();
     const navigate = useNavigate();
 
     function handleSubmit(event) {
         event.preventDefault();
-        const axios = require('axios').default;
         axios.post('/api/auth/login', inputValue)
         .then(response => {
             onLogin({isLoggedIn: true, user: response.data.user, token: response.data.token});

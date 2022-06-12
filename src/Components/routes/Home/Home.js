@@ -6,7 +6,6 @@ function Home() {
         <div className="Home">
             <UserList />
             <IoMessageBox />
-
         </div>
     )
 }

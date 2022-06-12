@@ -1,6 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-
 import AuthProvider from './Providers/AuthProvider';
 import IoSocketProvider from "./Providers/IoSocketProvider";
 
@@ -15,7 +14,6 @@ import Home from "./Components/routes/Home/Home";
 import './App.css';
 
 function App() {
-
   return (
     <div className="App">
        <BrowserRouter>
@@ -37,7 +35,6 @@ function App() {
           </Routes>
         </AuthProvider>
       </BrowserRouter>
-      
     </div>
   );
 }

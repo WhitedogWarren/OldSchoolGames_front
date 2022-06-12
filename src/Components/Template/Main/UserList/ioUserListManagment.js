@@ -1,4 +1,4 @@
-exports.ioManagment = (socket, updateUserList, updateInvites, navigate) => {
+exports.ioManagment = (socket, username, updateUserList, updateInvites, navigate, setPlayers) => {
     socket.on('socketNamed', data => {
         data = JSON.parse(data);
         updateUserList(data.userList);
@@ -15,6 +15,16 @@ exports.ioManagment = (socket, updateUserList, updateInvites, navigate) => {
         updateInvites(JSON.parse(invites));
     })
     socket.on('morpionStarts', data => {
-        navigate("/morpion")
+        if(data.host) {
+            console.log('hôte : ', data.host);
+            console.log('invité : ', username);
+            setPlayers({host: data.host, guest: username});
+        }
+        if(data.guest) {
+            console.log('hôte : ', username);
+            console.log('invité : ', data.guest);
+            setPlayers({host: username, guest: data.guest});
+        }
+        navigate("/morpion");
     })
 }
