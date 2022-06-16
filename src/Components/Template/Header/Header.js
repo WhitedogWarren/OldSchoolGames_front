@@ -9,7 +9,7 @@ function Header() {
         <header className="Header">
             <div className="ghost-nav"></div>
             <div className="heading-container">
-                <h1><Link to="/">Old School Games</Link></h1>
+                <h1><Link to="/home">Old School Games</Link></h1>
                 <div className="heading-underline">
                     <div className="heading-underline__blue"></div>
                     <div className="heading-underline__yellow"></div>

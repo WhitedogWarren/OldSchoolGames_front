@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 import useIoSocket from "../../../hooks/useIoSocket";
 import useAuth from "../../../hooks/useAuth";
@@ -9,7 +10,7 @@ import './Morpion.scss';
 
 function Morpion() {
     const { Socket } = useIoSocket();
-    
+    const navigate = useNavigate();
     const { authStatus } = useAuth();
     const {players} = useMorpion();
     
@@ -22,9 +23,21 @@ function Morpion() {
         }
         Socket.emit('cellPlayed', data);
     }
+    function goBackHome() {
+        navigate('/home');
+    }
+    function emitReload() {
+        Socket.emit('gameReload', {host: players.host, from: authStatus.user.pseudo});
+    }
+    function clearGameBoard() {
+        let cells = document.querySelectorAll('.cells');
+        for(let cell of cells) {
+            cell.innerHTML = '';
+        }
+    }
 
     useEffect(() => {
-        ioManagment(Socket);
+        ioManagment(Socket, emitReload, goBackHome, clearGameBoard);
         console.log('Morpion rendered');
         console.log(players);
         //Size the gameboard
@@ -71,11 +84,16 @@ function Morpion() {
 
         return () => {
             //clear the gameboard
+            console.log('Morpion détruit');
             gameBoard.innerHTML = '';
-            console.log(gameBoard.children);
             //////
             // TODO : clear socket eventListeners
             //////
+            Socket.off('gameMessage');
+            //////
+            // TODO : emit 'gameLeave' event. Won't be emitted when user logs out.
+            //////
+            Socket.emit('gameLeave', {user: authStatus.user.pseudo, gameHost: players.host});
         }
     }, []);
 
