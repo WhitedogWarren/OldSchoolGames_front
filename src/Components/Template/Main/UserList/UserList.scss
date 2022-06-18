@@ -1,0 +1,9 @@
+.Userlist {
+    width: 20%;
+    position:absolute;
+    box-shadow: inset -1px -1px 6px #0baa0b;
+    white-space: pre;
+    &__heading {
+        border: 1px solid green;
+    }
+}

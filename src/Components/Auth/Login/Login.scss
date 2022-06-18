@@ -1,0 +1,29 @@
+.Login {
+    text-align: center;
+    color: #88ff88;
+    & h2 {
+        padding: 10px;
+        box-shadow: inset -1px -1px 6px #0baa0b;
+        margin: auto;
+    }
+    & .field-box {
+        padding: 20px;
+    }
+    & button {
+        margin: 30px auto;
+    }
+}
+
+.login-form {
+    width: 400px;
+    margin: 60px auto 0;
+    box-shadow: inset -1px -1px 6px #0baa0b;
+    & .Button {
+        margin: 30px auto 0;
+    }
+    & .login-form__fields {
+        display: flex;;
+        justify-content: space-between;
+        margin: 10px 0;
+    }
+}

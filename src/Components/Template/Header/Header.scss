@@ -1,0 +1,84 @@
+.Header {
+    background-color: #150000;
+    box-shadow: inset -1px -1px 6px #0baa0b;
+    min-height: 100px;
+    display: flex;
+    justify-content: space-between;
+    color: white;
+    & .Button {
+        margin-right: 0px;
+        margin-left: auto;
+    }
+}
+
+.ghost-nav, header, nav {
+    flex: 1;
+}
+
+.ghost-nav {
+    padding: 20px;
+}
+
+nav {
+    text-align: right;
+    padding: 20px;
+    color: #66bb66;
+    & a, & a:hover, & a:visited {
+        text-decoration: none;
+        color: #aaaaaa;
+        &.active {
+            color: #88ff88;
+        }
+    }
+}
+
+h1 {
+    margin-bottom: 6px;
+    background-image: linear-gradient(to right, blue 0 15%, yellow 25% 45%, green 55% 75%, red 85% 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    & a {
+        text-decoration: none;
+        font-family: 'Montserrat', sans-serif;
+    }
+    font-weight: bold;
+}
+
+.heading-underline {
+    display: flex;
+    margin-bottom: 20px;
+    position: relative;
+    border-radius: 6px;
+    overflow: hidden;
+    height: 12px;
+    background-image: linear-gradient(to right, blue 0 15%, yellow 25% 45%, green 55% 75%, red 85% 100%);
+}
+
+.heading-underline__shadow {
+    box-shadow: inset -1px -1px 8px #150000;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+}
+
+input {
+    background-color: #000000;
+    color: #88ff88;
+    border-top: 1px solid #222222;
+    border-left: 1px solid #222222;
+    border-right: 1px solid #224422;
+    border-bottom: 1px solid #224422;
+    
+    &:focus-visible {
+        outline: 1px solid #88ff88;
+    }
+    &:-webkit-autofill {
+        -webkit-box-shadow:0 0 0 50px #000000 inset; /* Change the color to your own background color */
+        -webkit-text-fill-color: #88ff88;
+    }
+    
+}

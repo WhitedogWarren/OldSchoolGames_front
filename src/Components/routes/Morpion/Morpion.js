@@ -37,9 +37,8 @@ function Morpion() {
     }
 
     useEffect(() => {
-        ioManagment(Socket, emitReload, goBackHome, clearGameBoard);
-        console.log('Morpion rendered');
-        console.log(players);
+        ioManagment(Socket, authStatus.user.pseudo, emitReload, goBackHome, clearGameBoard);
+        console.log('Players : ', players);
         //Size the gameboard
         let gameBoard = document.querySelector('.game-board');
         let windowBottom = window.innerHeight;
@@ -83,16 +82,15 @@ function Morpion() {
         }
 
         return () => {
-            //clear the gameboard
-            console.log('Morpion détruit');
+            // clear the gameboard
             gameBoard.innerHTML = '';
-            //////
-            // TODO : clear socket eventListeners
-            //////
+            // clear socket eventListeners
+            Socket.off('error');
             Socket.off('gameMessage');
-            //////
-            // TODO : emit 'gameLeave' event. Won't be emitted when user logs out.
-            //////
+            Socket.off('gameLeft');
+            Socket.off('reloadAsked');
+            Socket.off('reloadGame');
+            // emit gameLeave event ( won't be emitted when user logs out because IoSocketProvider is destroyed )
             Socket.emit('gameLeave', {user: authStatus.user.pseudo, gameHost: players.host});
         }
     }, []);

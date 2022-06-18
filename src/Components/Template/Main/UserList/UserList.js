@@ -8,6 +8,8 @@ import { ioManagment } from "./ioUserListManagment";
 
 import UserListItem from "./../UserListItem/UserListItem";
 
+import './UserList.scss';
+
 function UserList() {
     const { authStatus } = useAuth();
     const { Socket } = useIoSocket();

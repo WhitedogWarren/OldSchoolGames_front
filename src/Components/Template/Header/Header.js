@@ -1,28 +1,37 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 import useAuth from "../../../hooks/useAuth";
-import './Header.css';
+import Button from "../../_utils/Button/Button";
+
+import './Header.scss';
 
 function Header() {
     const { onLogout, authStatus } = useAuth();
+    //console.log( this.context.router.isActive);
+    //assigning location variable
+    const location = useLocation();
+
+    //destructuring pathname from location
+    const { pathname } = location;
+
+    //Javascript split method to get the name of the path in array
+    const splitLocation = pathname.split("/");
+    
     return (
         <header className="Header">
             <div className="ghost-nav"></div>
             <div className="heading-container">
                 <h1><Link to="/home">Old School Games</Link></h1>
                 <div className="heading-underline">
-                    <div className="heading-underline__blue"></div>
-                    <div className="heading-underline__yellow"></div>
-                    <div className="heading-underline__green"></div>
-                    <div className="heading-underline__red"></div>
                     <div className="heading-underline__shadow"></div>
                 </div>
             </div>
             <nav>
                 {!authStatus.isLoggedIn && (
                     <div>
-                        <Link to="/login">login</Link>{' | '}
-                        <Link to="/signup">signup</Link>
+                        <Link className={splitLocation[1] === "login" ? "active" : ""} to="/login">login</Link>
+                        {' | '}
+                        <Link className={splitLocation[1] === "signup" ? "active" : ""} to="/signup">signup</Link>
                     </div>
                 )}
                 {authStatus.isLoggedIn && (
@@ -30,9 +39,7 @@ function Header() {
                         <p>
                             {authStatus.user.pseudo}
                         </p>
-                        <button type="button" onClick={onLogout}>
-                            Log Out
-                        </button>
+                        <Button className="logout-button" content="Log out" clickHandler={onLogout} />
                     </div>
                 )}
             </nav>

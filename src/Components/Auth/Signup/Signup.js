@@ -2,8 +2,9 @@ import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 
 import useAuth from './../../../hooks/useAuth';
+import Button from '../../_utils/Button/Button';
 
-import './Signup.css';
+import './Signup.scss';
 
 function Signup() {
     let formObject = {
@@ -29,9 +30,6 @@ function Signup() {
         const axios = require('axios').default;
         axios.post('/api/auth/signup', inputValue)
         .then(response => {
-            console.log(response.data.message);
-            console.log(response.data.user);
-            console.log(response.data.token)
             onLogin({isLoggedIn: true, user: response.data.user, token: response.data.token});
             navigate("/home");
         })
@@ -160,7 +158,7 @@ function Signup() {
     
     return (
         <div className="Signup">
-            <form className="signup-form" onSubmit={handleSubmit}>
+            <form className="signup-form">
                 <h2>S'enregistrer</h2>
                 <div className="field-box">
                     <div className="signup-form-pseudo signup-form__fields">
@@ -195,7 +193,7 @@ function Signup() {
                             <input type="text" name="signup_password_confirm" id="signup-password_confirm" onChange={valueChange}/>
                         </div>
                     </div>
-                    <button type='submit'>Entrer</button>
+                    <Button content="Valider" clickHandler={handleSubmit} />
                     <div className="error-logger">
                     </div>
                 </div>

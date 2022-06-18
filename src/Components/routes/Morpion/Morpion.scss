@@ -20,7 +20,15 @@
 }
 
 .cells {
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     border-bottom: 1px solid green;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    & span {
+        height: fit-content;
+        line-height: 1;
+    }
 }
 
 #c13, #c23, #c33

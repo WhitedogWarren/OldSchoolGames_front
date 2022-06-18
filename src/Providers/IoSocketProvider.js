@@ -3,7 +3,8 @@ import socketIOClient from "socket.io-client";
 import IoSocketContext from '../Contexts/IoSocketContext';
 
 function IoSocketProvider({children}) {
-    const Socket = socketIOClient('http://192.168.1.58:3000', { transports: ['websocket'] });
+    console.log(process.env.REACT_APP_IO_URL);
+    const Socket = socketIOClient(process.env.REACT_APP_IO_URL, { transports: ['websocket'] });
 
     function ioClose() {
         Socket.close();
