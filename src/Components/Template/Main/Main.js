@@ -3,13 +3,11 @@ import { Outlet } from 'react-router-dom';
 
 import MorpionGameProvider from '../../../Providers/MorpionGameProvider';
 import useIoSocket from '../../../hooks/useIoSocket';
-import useAuth from '../../../hooks/useAuth';
 
 import './Main.scss';
 
 function Main() {
     const { ioClose } = useIoSocket();
-    const { authStatus } = useAuth();
     useEffect(() => {
 
         return () => {

@@ -6,17 +6,10 @@ exports.ioManagment = (socket, userName, emitReload, goBackHome, clearGameBoard)
         let tokenElement = document.createElement('span');
         tokenElement.appendChild(document.createTextNode(data.token.toUpperCase()));
         document.querySelector('#' + data.cellToDraw).appendChild(tokenElement);
-        //////
-        // TODO : control data.result and set the proper message to display
-        //////
-        
         if(!data.result) {
             document.querySelector('.game-message-box').innerHTML = data.message;
         }
         if(data.result) {
-            //////
-            // TODO : display message + reload button
-            //////
             document.querySelector('.game-message-box').innerHTML = '';
             let message = data.message;
             let messageNode = document.createTextNode(message);
@@ -28,7 +21,6 @@ exports.ioManagment = (socket, userName, emitReload, goBackHome, clearGameBoard)
             document.querySelector('.game-message-box').appendChild(reloadButton);
             reloadButton.addEventListener('click', emitReload);
         }
-        
     })
     socket.on('gameLeft', data => {
         console.log('gameLeft');
@@ -60,13 +52,9 @@ exports.ioManagment = (socket, userName, emitReload, goBackHome, clearGameBoard)
             document.querySelector('.game-message-box').appendChild(reloadButton);
             reloadButton.addEventListener('click', emitReload);
         }
-            
-        
-            
     })
     socket.on('reloadGame', data => {
         document.querySelector('.game-message-box').innerHTML = 'La partie est relancée';
         clearGameBoard();
     })
-    
 }

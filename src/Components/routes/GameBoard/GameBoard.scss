@@ -1,0 +1,11 @@
+.game-grid {
+    background-color: #132715;
+    border-radius: 10px;
+    box-shadow: 6px 6px 6px #073b25;
+    margin-top: 20px;
+    border: 1px solid green;
+    & .cells {
+        font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        
+    }
+}
