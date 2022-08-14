@@ -1,8 +1,6 @@
 import './GameBoard.scss';
 
 function GameBoard(props) {
-    console.log(props.width);
-    
     //build a array of cell names
     let cells = [];
     for(let y = 1; y<=parseInt(props.cols); y++) {
@@ -19,14 +17,14 @@ function GameBoard(props) {
     return (
         <div className="GameBoard">
             <div
-            className="game-grid"
-            style={{
-                display: 'grid',
-                width: props.width + 'px',
-                height: props.height + 'px',
-                margin: '20px auto 10px',
-                gridTemplateColumns: gridColumns
-            }}
+                className="game-grid"
+                style={{
+                    display: 'grid',
+                    width: props.width + 'px',
+                    height: props.height + 'px',
+                    margin: '20px auto 10px',
+                    gridTemplateColumns: gridColumns
+                }}
             >
                 {cells.map(cellName => (
                     <div
